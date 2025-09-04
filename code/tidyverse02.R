@@ -1,5 +1,7 @@
-df0<- tibble(x = 1:50, 
-             y = x *2)
+library(tidyverse)
+df0 <- tibble(x = 1:50, 
+             y = x * 2)
+
 df0 %>% 
   ggplot(aes(x = x, y = y )) +
   geom_line()+
@@ -84,3 +86,4 @@ df_mtcars %>%
             qsec_mean = mean(qsec)) %>% 
   ggplot(aes(x = wt_mean, y = qsec_mean)) +
   geom_point()
+
