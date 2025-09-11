@@ -1,4 +1,7 @@
+rm(list = ls())
+
 library(tidyverse)
+library(dplyr)
 df0 <- tibble(x = 1:50, 
              y = x * 2)
 
@@ -47,15 +50,15 @@ df_mtcars <- as.tibble(mtcars)
 filter(df_mtcars, cyl == 4 )
 
 #select specific columns
-select(df_mtcars,
-       c(mpg, cyl, disp, wt, vs, carb))
+df_mtcars %>% 
+  dplyr::select(c(mpg, cyl, disp, wt, vs, carb))
 
 #select rows with cyl is >4
 #then select colums of mpg, cyl, disp, wt, vs, carb
 #assign to df_sub
 df_sub <- mtcars %>% 
   filter(cyl > 4 ) %>% 
-  select(mpg, cyl, disp, wt, vs, carb)
+  dplyr::select(mpg, cyl, disp, wt, vs, carb)
 
 v_car <- rownames(mtcars)
 
