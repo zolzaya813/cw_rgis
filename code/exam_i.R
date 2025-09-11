@@ -29,7 +29,7 @@ mtcars_mpg25 <- df_mtcars %>%
 # Combine logical conditions using `&`.
 # Assign to: `mtcars_light_cyl4`
 mtcars_light_cyl4 <- df_mtcars %>% 
-  filter( wt > 2.5 & cyl == 4)
+  filter( wt < 2.5 & cyl == 4)
 # 5. Sort `df_mtcars` by horsepower (`hp`) in ascending order
 # Use `arrange()` to sort the data.
 # Assign to: `mtcars_hp`
