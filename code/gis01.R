@@ -2,9 +2,10 @@ if (!require(pacman)) install.packages("pacman")
 
 pacman::p_load(tidyverse,
                sf,
-               mapview)
+               mapview,
+               here)
 
-df_fish <- read_csv("data/data_finsync_nc.csv")
+df_fish <- read_csv(here::here("data/data_finsync_nc.csv"))
 print(df_fish)
 
 sf_site <- df_fish %>% 
@@ -19,7 +20,7 @@ mapview(sf_site,
 
 ##export data
 saveRDS(sf_site,
-        file = "data/sf_finsync_nc.rds")
+        file = here::here("data/sf_finsync_nc.rds"))
 
 # conversion from geodetic to projected -----------------------------------
 
@@ -55,4 +56,5 @@ sf_ft_quakes_proj <- sf_ft_quakes %>%
 
 st_distance(sf_ft_quakes_proj)
 
-saveRDS(sf_quakes, file = "data/sf_quakes.rds")
+saveRDS(sf_quakes, file = here::here("data/sf_quakes.rds"))
+
