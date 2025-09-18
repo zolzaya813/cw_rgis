@@ -14,8 +14,8 @@ sf_site <- df_fish %>%
 
 print(sf_site)
 
-# mapview(sf_site,
-#         legend = FALSE)
+mapview(sf_site,
+        legend = FALSE)
 
 ##export data
 saveRDS(sf_site,
@@ -44,10 +44,13 @@ print(df_quakes)
 sf_quakes <- df_quakes %>% 
   st_as_sf(coords = c("long", "lat"),
            crs = 4326)
+
+mapview(sf_quakes, legend = FALSE)
+
 sf_ft_quakes <- sf_quakes %>% 
   slice(c(1,2))
 
 sf_ft_quakes_proj <- sf_ft_quakes %>% 
-  st_transform(crs = 32617)
+  st_transform(crs = 32759)
 
 saveRDS(sf_quakes, file = "data/sf_quakes.rds")
