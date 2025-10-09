@@ -106,10 +106,11 @@ sf_site <- readRDS(here("data/sf_finsync_nc.rds"))
 df_xy <- st_coordinates(sf_site)
 
 df_land <- extract(spr_land, y =  df_xy)
+
 table(df_land)
 
 ##5
-(cm2n <- cbind(c(0, 1001, 1010, 1100),
+(cm2 <- cbind(c(0, 1001, 1010, 1100),
              c(0, 0, 0, 1)))
 
 spr_urban <- classify(spr_land,
