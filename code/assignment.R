@@ -90,5 +90,5 @@ sf_county_s1_transform <- st_transform(sf_county_s1, crs = 32617)
 
 sf_county_s1_area <- st_area(sf_county_s1_transform)
 
-largest_area <- max(sf_county_s1_area)
-largest_area
+largest_county <- max(sf_county_s1_area)
+largest_county
