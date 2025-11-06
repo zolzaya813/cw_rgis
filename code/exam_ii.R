@@ -163,7 +163,7 @@ mean(v_crop)
 # to the same UTM coordinate reference system (EPSG: 32617). 
 # Use an appropriate re-sampling method in light of the raster data type.
 spr_crop_four_proj <- project(x = spr_crop_four, y = "EPSG:32617",
-                              method = "bilinear")
+                              method = "near")
 
 # Q14. Create a map displaying the projected cropland raster (`spr_crop_proj`) 
 # with 3-km site buffers (`sf_buff_proj`) overlaid.
