@@ -40,6 +40,7 @@ sf_nc_county <- readRDS("data/sf_nc_county.rds")
 # Q3. 
 # Perform a spatial join to identify sites in `sf_site` that fall within 
 #   the four selected counties stored in `sf_four`. 
+# Make sure that the output object is a POINT layer after spatial join.
 # Remove any rows without a `county` value and save the result as `sf_site_four`.
 
 
