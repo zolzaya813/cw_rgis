@@ -74,8 +74,8 @@ sf_site <- st_transform(sf_site, crs = crs(spr_elev_mgl))
 (sf_site_w_elev <- sf_site_w_elev %>%
   mutate(species =
            case_when(
-             y == 1 & z == 0 ~ "Sorex_caecutiens",
-             y == 0 & z == 1 ~ "Urocitellus_undulatus",
+             y == 1 & z == 0 ~ "Urocitellus_undulatus",
+             y == 0 & z == 1 ~ "Sorex_caecutiens",
              y == 1 & z == 1 ~ "Both",
              TRUE ~ "None"
            )))
@@ -97,7 +97,7 @@ df_site_w_elev <- as_tibble(sf_site_w_elev) %>%
   rename(elevation = Mongolia_SRTM_DEM)
 
 
-(m_shrew <- glm(y ~ elevation,
+(m_shrew <- glm(z ~ elevation,
               data = df_site_w_elev,
               family = "binomial"))
 summary(m_shrew)
@@ -105,26 +105,15 @@ summary(m_shrew)
 df_shrew_pred <- ggpredict(m_shrew,
                      terms = "elevation [all]")
 
-(m_ground_squirrel <- glm(z ~ elevation,
+(m_ground_squirrel <- glm(y ~ elevation,
                 data = df_site_w_elev,
                 family = "binomial"))
 summary(m_ground_squirrel)
 df_g_squirrel_pred <- ggpredict(m_ground_squirrel,
                            terms = "elevation [all]")
 
-shrew <- ggplot() +
-  geom_point(data = df_site_w_elev, aes(x = elevation, y = y)) +
-  geom_line(data = df_shrew_pred, aes(x = x, y = predicted)) +
-  geom_ribbon(
-    data = df_shrew_pred,
-    aes(x = x, ymin = conf.low, ymax = conf.high),
-    fill = "grey",
-    alpha = 0.2) +
-  labs(title = "Sorex_caecutiens", x = "Elevation", y = "Probability of occurrence") +
-  theme_bw()
-
 ground_squirrel <- ggplot() +
-  geom_point(data = df_site_w_elev, aes(x = elevation, y = z)) +
+  geom_point(data = df_site_w_elev, aes(x = elevation, y = y)) +
   geom_line(data = df_g_squirrel_pred, aes(x = x, y = predicted)) +
   geom_ribbon(
     data = df_g_squirrel_pred,
@@ -132,6 +121,17 @@ ground_squirrel <- ggplot() +
     fill = "grey",
     alpha = 0.2) +
   labs(title = "Urocitellus_undulatus", x = "Elevation", y = "Probability of occurrence") +
+  theme_bw()
+
+shrew <- ggplot() +
+  geom_point(data = df_site_w_elev, aes(x = elevation, y = z)) +
+  geom_line(data = df_shrew_pred, aes(x = x, y = predicted)) +
+  geom_ribbon(
+    data = df_shrew_pred,
+    aes(x = x, ymin = conf.low, ymax = conf.high),
+    fill = "grey",
+    alpha = 0.2) +
+  labs(title = "Sorex_caecutiens", x = "Elevation", y = "Probability of occurrence") +
   theme_bw()
 
 (shrew | ground_squirrel)
@@ -153,7 +153,7 @@ summary(m_spec_ricness)
 df_spec_richness_pred <- ggpredict(m_spec_ricness,
                            terms = "elevation [all]")
 
-spec_richness <- ggplot() +
+(spec_richness <- ggplot() +
   geom_point(data = df_data_spec_richness_w_elev, aes(x = elevation, y = spec_richness)) +
   geom_line(data = df_spec_richness_pred, aes(x = x, y = predicted)) +
   geom_ribbon(
@@ -162,4 +162,4 @@ spec_richness <- ggplot() +
     fill = "grey",
     alpha = 0.2) +
   labs(title = "Species richness", x = "Elevation", y = "Probability of occurrence") +
-  theme_bw()
+  theme_bw())
